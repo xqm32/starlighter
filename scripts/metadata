@@ -1,0 +1,37 @@
+#!/usr/bin/env -S uv run --script
+
+# /// script
+# requires-python = ">=3.12"
+# dependencies = [
+#     "pyyaml>=6.0.3",
+# ]
+# ///
+
+import tomllib
+from pathlib import Path
+from subprocess import run
+
+import yaml
+
+
+def main() -> None:
+    project = tomllib.loads(Path("pyproject.toml").read_text())["project"]
+
+    result = run(["git", "remote", "get-url", "origin"], capture_output=True, text=True)
+    repo = result.stdout.strip().removesuffix(".git")
+    author, _ = repo.removeprefix("https://github.com/").split("/")
+
+    metadata = {
+        "name": project["name"],
+        "display_name": project["name"],
+        "desc": project["description"],
+        "version": f"v{project['version']}",
+        "author": author,
+        "repo": repo,
+    }
+
+    Path("metadata.yaml").write_text(yaml.dump(metadata, sort_keys=False))
+
+
+if __name__ == "__main__":
+    main()
