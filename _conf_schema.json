@@ -1,0 +1,10 @@
+{
+  "x": {
+    "description": "x",
+    "type": "object",
+    "items": {
+      "base_url": { "type": "string" },
+      "timeout": { "type": "float", "default": 120.0 }
+    }
+  }
+}
