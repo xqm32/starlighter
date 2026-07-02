@@ -1,0 +1,3 @@
+[daemons.astrbot]
+run = ".venv/bin/astrbot run"
+retry = true

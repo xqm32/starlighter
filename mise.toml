@@ -1,3 +1,4 @@
 [tools]
+pitchfork = "latest"
 python = "3.12"
 uv = "latest"
